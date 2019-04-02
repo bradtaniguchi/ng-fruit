@@ -7,5 +7,12 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "fruit-client": {
+      "tags": []
+    },
+    "fruit-client-e2e": {
+      "tags": []
+    }
+  }
 }
