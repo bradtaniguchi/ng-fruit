@@ -47,7 +47,9 @@
               "apps/fruit-client/src/favicon.ico",
               "apps/fruit-client/src/assets"
             ],
-            "styles": ["apps/fruit-client/src/styles.scss"],
+            "styles": [
+              "apps/fruit-client/src/styles.scss"
+            ],
             "scripts": [],
             "es5BrowserSupport": true
           },
@@ -81,7 +83,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "fruit-client:build"
+            "browserTarget": "fruit-client:build",
+            "proxyConfig": "apps/fruit-client//proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -102,7 +105,9 @@
               "apps/fruit-client/tsconfig.app.json",
               "apps/fruit-client/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "test": {
@@ -137,7 +142,68 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "apps/fruit-client-e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "fruit-api": {
+      "root": "apps/fruit-api",
+      "sourceRoot": "apps/fruit-api/src",
+      "projectType": "application",
+      "prefix": "fruit-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/builders:node-build",
+          "options": {
+            "outputPath": "dist/apps/fruit-api",
+            "main": "apps/fruit-api/src/main.ts",
+            "tsConfig": "apps/fruit-api/tsconfig.app.json",
+            "assets": [
+              "apps/fruit-api/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/fruit-api/src/environments/environment.ts",
+                  "with": "apps/fruit-api/src/environments/environment.prod.ts"
+                }
+              ],
+              "externalDependencies": "none"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/builders:node-execute",
+          "options": {
+            "buildTarget": "fruit-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/fruit-api/tsconfig.app.json",
+              "apps/fruit-api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/fruit-api/jest.config.js",
+            "tsConfig": "apps/fruit-api/tsconfig.spec.json"
           }
         }
       }

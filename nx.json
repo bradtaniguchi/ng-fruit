@@ -13,6 +13,9 @@
     },
     "fruit-client-e2e": {
       "tags": []
+    },
+    "fruit-api": {
+      "tags": []
     }
   }
 }
